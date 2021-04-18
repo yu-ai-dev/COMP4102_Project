@@ -9,6 +9,9 @@ import segment
 
 def siftMatch(input, sign, threshold=0.75):
 
+    if(input.shape[0] < 50 or input.shape[1] < 50):
+        return 0
+
     img1 = sign
     img2 = input
     #img2 = cv2.imread('testS.png')
@@ -58,3 +61,7 @@ def siftMatch(input, sign, threshold=0.75):
     #cv2.destroyAllWindows()
 
     return len(good)
+
+# img1 = cv2.imread("stop2_red.png")
+# img2 = cv2.imread("stopData.png")
+# siftMatch(img1, img2)
