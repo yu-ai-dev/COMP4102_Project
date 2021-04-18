@@ -78,6 +78,11 @@ return segmented image
 ```
 Segment image to the sign
 
+## color_segment2.py
+```python
+color detection for images, but the correct rate is not high enough
+```
+
 ## match.py
 Read signs image from dataset folder, read images to recognize from test folder   
 Provide top 3 possible match
