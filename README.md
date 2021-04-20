@@ -59,17 +59,34 @@ April 10 - April 14	Final perfection and inspection of project
 
 ## Code
 
-## sift.py
-```python
-function siftMatch(input, sign, threshold=0.75)
-input = image to recognize sign
-sign = sign image from the dataset
-threshold = matching distance
-return number of effective match points
+## match.py
+Main program for the project
+ - Read dataset images
+ - Proceed color masks
+ - Proceed contour segmentation and cropping
+ - Proceed feature matching with dataset
+ - **Provide top possible matches from each color mask**
+
+### Usage
+Run
 ```
-Compare similarity between the input and the sign
+python match.py
+```
+Default input folder ```Input```. Default dataset folder ```43 ROAD SIGNS```. 
+There are some images for you to test in the Input folder.     
+If you would like to change your input folder name, run
+```
+python match.py "input_folder"
+```
+or dataset folder as well
+```
+python match.py "input_folder" "dataset_folder"
+```
 
 ## segment.py
+Segment the image based on colors.     
+Supported color for road signs: ```Red``` ```Yellow``` ```Blue```
+    
 ```python
 def colorRedSegment(input, color,  threshold=5)
 ```
@@ -77,9 +94,8 @@ def colorRedSegment(input, color,  threshold=5)
 ```color``` selected color for mask. 
 ```threshold``` morphology threshold. 
 ```return image masked by color```
+  
 
-Segment the image based on colors.     
-Supported color for road signs: ```Red``` ```Yellow``` ```Blue```
 
 ### Usage
 Run
@@ -91,13 +107,17 @@ Returns the image with all color masks supported. If you want to segment by sing
 python segment.py "your_image" "color_name"
 ```
 Returns the image with the selected color mask. Support ```Red``` ```Yellow``` ```Blue```
+    
+![Alt text](demo/segment.png?raw=true "Segmented by all colors")
 
 ## contour.py
+Find the contour from the color mask and crop the image to the contour. Used to locate final road sign position in the image. 
+    
 ```
 def cropContour(input, mask, blur=2, cannyMin=160, cannyMax=255, dilate=2, area=30)
 ```
 ```input``` Input image to crop. ```mask``` Color mask image from segment.py. ```blur``` Guassian blur matrix size. ```cannyMin``` Minimum threshold for Canny Edges. ```cannyMax``` Maximum threshold for Canny Edges. ```dilate``` Dilate matrix size. ```area``` Threshold for minimum area size of contours. ```returns cropped image by selected contours```
-
+    
 ### Usage
 Run
 ```
@@ -108,12 +128,16 @@ It will show up all images set by the parameters and a control pannel for user t
 ![Alt text](demo/contour_image.png?raw=true "Contour")
 ![Alt text](demo/contour_trackbar.png?raw=true "Contour Trackbar")
 
-## color_segment2.py
+## sift.py
 ```python
-color detection for images, but the correct rate is not high enough
+def siftMatch(input, sign, threshold=0.75)
 ```
+```input``` Image to recognize sign. 
+```sign``` Sign image from the dataset. 
+```threshold``` Matching distance. 
+```return number of effective match points```
+    
+Compare similarity between the input and the sign using SIFT as the desciptor. 
 
-## match.py
-Read signs image from dataset folder, read images to recognize from test folder   
-Provide top 3 possible match
+
 
