@@ -8,8 +8,6 @@ def getContour(input, output, area_threshold):
 
     img = output.copy()
 
-    #cv2.imshow("img", img)
-
 
     x,y,w,h = 0, 0, img.shape[0]-1, img.shape[1]-1
     count = 0
@@ -18,25 +16,16 @@ def getContour(input, output, area_threshold):
         if(area > area_threshold):
             count += 1
             cv2.drawContours(output, cout, -1, (0, 255,0), 2)
-            #print(len(approx))
             x,y,w,h = cv2.boundingRect(cout)
             cv2.rectangle(output,(x,y),(x+w,y+h),(255,140,0),2)
 
-    #print("xy", x, y, w, h)
-    #print(img.shape[0], img.shape[1])
 
     if(y+h >= img.shape[0] or x+w >= img.shape[1]):
         return img
 
     cropped = img[y:y+h-1, x:x+w-1]
 
-    # if(count < 5):
-    #     return img
-    #print(count)
-    #print(img)
-    #print(cropped)
 
-    #cv2.imshow("test", cropped)
 
     return cropped
 
@@ -54,16 +43,6 @@ def cropContour(input, mask, blur=2, cannyMin=160, cannyMax=255, dilate=2, area=
 
     return cropped
 
-# def cropContour(input, blur=2, cannyMin=160, cannyMax=255, dilate=2, area=17):
-#
-#     gray = cv2.cvtColor(input, cv2.COLOR_BGR2GRAY)
-#     imgBlur = cv2.GaussianBlur(gray, (2*blur+1, 2*blur+1), 1)
-#     imgCanny = cv2.Canny(imgBlur, cannyMin, cannyMax)
-#     imgDil = cv2.dilate(imgCanny, np.ones((dilate, dilate)))
-#     imgContour = input.copy()
-#     cropped = getContour(imgDil, imgContour, area*100)
-#
-#     return cropped
 
 def run(input_name):
 
