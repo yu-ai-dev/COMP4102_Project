@@ -71,12 +71,26 @@ Compare similarity between the input and the sign
 
 ## segment.py
 ```python
-function colorRedSegment(input, threshold=5)
-input = image to recognize sign
-threshold = morphology threshold
-return segmented image
+function colorRedSegment(input, color,  threshold=5)
 ```
-Segment image to the sign
+```input``` image to recognize sign. 
+```color``` selected color for mask. 
+```threshold``` morphology threshold. 
+```return image masked by color```
+
+Segment the image based on colors.     
+Supported color for road signs: ```Red``` ```Yellow``` ```Blue```
+
+### Usage
+Run
+```
+python segment.py "your_image"
+```
+Returns the image with all color masks supported. If you want to segment by single color, run
+```
+python segment.py "your_image" "color_name"
+```
+Returns the image with the selected color mask. Support ```Red``` ```Yellow``` ```Blue```
 
 ## color_segment2.py
 ```python
