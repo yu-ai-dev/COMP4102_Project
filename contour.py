@@ -91,6 +91,8 @@ def run(input_name):
 
     cv2.destroyAllWindows()
 
-if len(sys.argv) >1:
-    read_image = sys.argv[1]
-    run(read_image)
+if __name__ == "__main__":
+
+    if len(sys.argv) >1:
+        read_image = sys.argv[1]
+        run(read_image)

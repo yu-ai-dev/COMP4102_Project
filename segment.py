@@ -106,9 +106,11 @@ def run(input_name, color):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-if len(sys.argv) >1:
-    read_image = sys.argv[1]
-    color = "all"
-    if(len(sys.argv) >2):
-        color = str(sys.argv[2])
-    run(read_image, color)
+if __name__ == "__main__":
+
+    if len(sys.argv) >1:
+        read_image = sys.argv[1]
+        color = "all"
+        if(len(sys.argv) >2):
+            color = str(sys.argv[2])
+        run(read_image, color)
