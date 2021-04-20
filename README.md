@@ -71,7 +71,7 @@ Compare similarity between the input and the sign
 
 ## segment.py
 ```python
-function colorRedSegment(input, color,  threshold=5)
+def colorRedSegment(input, color,  threshold=5)
 ```
 ```input``` image to recognize sign. 
 ```color``` selected color for mask. 
@@ -91,6 +91,22 @@ Returns the image with all color masks supported. If you want to segment by sing
 python segment.py "your_image" "color_name"
 ```
 Returns the image with the selected color mask. Support ```Red``` ```Yellow``` ```Blue```
+
+## contour.py
+```
+def cropContour(input, mask, blur=2, cannyMin=160, cannyMax=255, dilate=2, area=30)
+```
+```input``` Input image to crop. ```mask``` Color mask image from segment.py. ```blur``` Guassian blur matrix size. ```cannyMin``` Minimum threshold for Canny Edges. ```cannyMax``` Maximum threshold for Canny Edges. ```dilate``` Dilate matrix size. ```area``` Threshold for minimum area size of contours. ```returns cropped image by selected contours```
+
+### Usage
+Run
+```
+python contour.py "your_image"
+```
+It will show up all images set by the parameters and a control pannel for user to change the thresholds:    
+    
+![Alt text](demo/contour_image.png?raw=true "Contour")
+![Alt text](demo/contour_trackbar.png?raw=true "Contour Trackbar")
 
 ## color_segment2.py
 ```python
