@@ -57,21 +57,7 @@ def colorSegment(input, color, threshold = 5):
     for m in masks:
         mask = mask + m
 
-    # lower_red = np.array([0,30,100])
-    # upper_red = np.array([10,255,255])
-    #
-    # mask1 = cv2.inRange(hsv, lower_red, upper_red)
-    #
-    # lower_red = np.array([170,30,100])
-    # upper_red = np.array([180,255,255])
-    #
-    # mask2 = cv2.inRange(hsv, lower_red, upper_red)
-    #
-    # mask = mask1 + mask2
 
-    #print(mask)
-
-    #mask = cv2.blur(mask, (5, 5))
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (threshold, threshold))
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
     res = cv2.bitwise_and(input,input, mask= mask)
@@ -81,10 +67,7 @@ def colorSegment(input, color, threshold = 5):
 
     left, right, top, bottom = 0, 1, 0, 1
 
-    #print(pixels[-1])
-    #pixels = []
 
-    #pixels = [i for i in pixelsList.tolist() if i is not None]
 
     if(pixels is None):
         return input, np.zeros_like(original)
@@ -95,12 +78,7 @@ def colorSegment(input, color, threshold = 5):
     bottom = max(pixels, key=lambda x: x[0][0])[0][0]
 
 
-
-    # res[] if only red area wanted
     crop = original[left:right, top:bottom]
-    #cv2.imshow(str(color)+' mask', mask)
-
-
 
 
     return original, mask
@@ -116,18 +94,21 @@ def run(input_name, color):
     if(not os.path.exists(os.path.join(os.getcwd(), "SegmentTest"))):
         os.makedirs(os.path.join(os.getcwd(), "SegmentTest"))
 
-    cv2.imshow('Image',imgInput)
-    #cv2.imshow('mask',mask)
+    #cv2.imshow('Image',imgInput)
+
     segmented_list = segment(imgInput, color)
     for i in segmented_list:
         cv2.imshow(str(i[0]),i[1][0])
         cv2.imshow(str(i[0])+"mask", i[1][1])
         cv2.imwrite(os.path.join(os.getcwd(), "SegmentTest", str(i[0])+".png"), i[1][0])
+        cv2.imwrite(os.path.join(os.getcwd(), "SegmentTest", str(i[0])+"_mask.png"), i[1][1])
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 if len(sys.argv) >1:
     read_image = sys.argv[1]
-    color = str(sys.argv[2])
+    color = "all"
+    if(len(sys.argv) >2):
+        color = str(sys.argv[2])
     run(read_image, color)
